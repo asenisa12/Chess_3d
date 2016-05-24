@@ -32,7 +32,7 @@ void Game::run()
 		if (device->isWindowActive())
 		{
 			b.update();
-			g_util->driver->beginScene(true, true, SColor(100, 255, 0, 0));
+			g_util->driver->beginScene(true, true, SColor(100, 100, 100, 255));
 			g_util->smgr->drawAll();
 			g_util->driver->endScene();
 		}

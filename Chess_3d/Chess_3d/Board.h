@@ -1,7 +1,10 @@
 #pragma once
 #include "Utils.h"
 #include "Figure.h"
+#include "Pawn.h"
 #include "Selector.h"
+
+extern bool playerOnMove;
 
 class Board
 {
@@ -10,49 +13,24 @@ class Board
 	static utils *g_util;
 	static std::vector<Figure*> figures;
 	obj_3d *obj;
-	class sel_mover
+	class sel_handler
 	{
 		bool selected;
 		Figure *sel_fig;
-	public: 
-		sel_mover() 
+		bool on_availablePos();
+		void unselect()
 		{
+			printf("log: figure unselected\n");
 			sel_fig = NULL;
 			selected = false;
 		}
-		void read_keys()
+	public: 
+		sel_handler() 
 		{
-			vector3df selpos = selector->get_pos();
-			if (g_util->erec->IsKeyUp(irr::KEY_KEY_W))
-				selpos.Z += MOVE*SCALE;
-			else if (g_util->erec->IsKeyUp(irr::KEY_KEY_S))
-				selpos.Z -= MOVE*SCALE;
-			if (g_util->erec->IsKeyUp(irr::KEY_KEY_A))
-				selpos.X -= MOVE*SCALE;
-			else if (g_util->erec->IsKeyUp(irr::KEY_KEY_D))
-				selpos.X += MOVE*SCALE;
-			selector->change_pos(selpos);
-			if (!selected)
-				for (auto fig : figures)
-				{
-					if (fig->get_pos() == selector->get_pos() &&
-						g_util->erec->IsKeyUp(irr::KEY_KEY_O))
-					{
-						printf("Ludnica\n");
-						sel_fig = fig;
-						selected = true;
-					}
-				}
-			else if (sel_fig->get_pos() != selector->get_pos() &&
-				g_util->erec->IsKeyUp(irr::KEY_KEY_O))
-			{
-				sel_fig->set_pos(selpos);
-				sel_fig = NULL;
-				selected = false;
-			}
-			g_util->erec->clear();
+			unselect();
 		}
-	}sel_move;
+		void read_keys();
+	}sel_handle;
 public:
 
 	void update();
