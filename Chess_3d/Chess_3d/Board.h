@@ -4,7 +4,6 @@
 #include "Pawn.h"
 #include "Selector.h"
 
-extern bool playerOnMove;
 
 class Board
 {
@@ -12,12 +11,19 @@ class Board
 	static Selector *selector;
 	static utils *g_util;
 	static std::vector<Figure*> figures;
+	static ICameraSceneNode *camera;
+	static bool playerOnMove;
 	obj_3d *obj;
 	class sel_handler
 	{
 		bool selected;
 		Figure *sel_fig;
+		std::vector<Selector*> sel_lights;
+
 		bool on_availablePos();
+		void add_lights();
+		void take_figure(vector3df pos);
+		void switch_sides();
 		void unselect()
 		{
 			printf("log: figure unselected\n");

@@ -21,10 +21,6 @@ Game::~Game()
 void Game::run()
 {
 	Board b(g_util);
-	ICameraSceneNode *camera = g_util->smgr->addCameraSceneNode();
-
-	camera->setPosition(vector3df(0, 40, -80));
-	camera->setTarget(vector3df(0, 5, 0));
 	
 
 	while (device->run())

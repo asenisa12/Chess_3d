@@ -114,5 +114,9 @@ public:
 		if(node)
 			node->setMaterialTexture(0, driver->getTexture(text_path));
 	}
+	void remove()
+	{
+		node->remove();
+	}
 };
 

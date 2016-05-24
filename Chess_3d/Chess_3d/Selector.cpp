@@ -14,8 +14,7 @@ Selector::Selector(utils *s_util_, SColor color)
 		core::array<video::ITexture*> textures;
 		for (s32 g = 7; g > 0; --g)
 		{
-			core::stringc tmp;
-			tmp = "resources/portal";
+			core::stringc tmp = "resources/portal";
 			tmp += g;
 			tmp += ".bmp";
 			video::ITexture* t = s_util->driver->getTexture(tmp.c_str());
@@ -40,5 +39,10 @@ vector3df Selector::get_pos()
 
 void Selector::remove()
 {
-	s_node->drop();
+	s_node->remove();
+}
+
+Selector::~Selector()
+{
+	remove();
 }

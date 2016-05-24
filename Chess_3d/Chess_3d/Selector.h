@@ -10,5 +10,6 @@ public:
 	void change_pos(vector3df new_pos);
 	vector3df get_pos();
 	void remove();
+	~Selector();
 };
 

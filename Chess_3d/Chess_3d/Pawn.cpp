@@ -12,9 +12,23 @@ std::vector<vector3df> Pawn::get_availableMoves(
 	std::vector<Figure*> otherFigs)
 {
 	std::vector<vector3df> positions;
-	vector3df currentPos = node->getPosition();
-	currentPos.Z += 2*SCALE;
-	positions.push_back(currentPos);
+	vector3df otherPos = node->getPosition();
+	positions.push_back(otherPos);
+	otherPos.Z += delim*MOVE*SCALE;
+	positions.push_back(otherPos);
+	
+	for (auto fig : otherFigs)
+	{
+		if (fig->get_color() != get_color())
+		{
+			if (fig->get_pos().Z == otherPos.Z)
+			{
+				if (fig->get_pos().X == otherPos.X + delim*MOVE*SCALE ||
+					fig->get_pos().X == otherPos.X - delim*MOVE*SCALE)
+					positions.push_back(fig->get_pos());
+			}
+		}
+	}
 	return positions;
 }
 
