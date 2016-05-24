@@ -13,6 +13,8 @@ using namespace gui;
 
 const int SCALE = 5;
 
+enum SIDE {BLACK=0,WHITE=1};
+
 class EventReceiver : public IEventReceiver
 {
 public:
@@ -93,7 +95,7 @@ protected:
 	IAnimatedMesh *mesh;
 	IAnimatedMeshSceneNode *node;
 public:
-	obj_3d(std::string meshpath, std::string texturepath, int scale, utils *util)
+	obj_3d(std::string meshpath, int scale, utils *util)
 	{
 		mesh = util->smgr->getMesh(meshpath.c_str());
 		node = util->smgr->addAnimatedMeshSceneNode(mesh);
@@ -101,12 +103,16 @@ public:
 		{
 			node->setMaterialFlag(EMF_LIGHTING, false);
 			node->setMD2Animation(EMAT_STAND);
-			node->setMaterialTexture(0, util->driver->getTexture(texturepath.c_str()));
 		}
 		node->setScale(vector3df(scale, scale, scale));
 	}
 	void set_pos(vector3df new_pos) {
 		node->setPosition(new_pos);
+	}
+	void set_texture(char *text_path, IVideoDriver *driver)
+	{
+		if(node)
+			node->setMaterialTexture(0, driver->getTexture(text_path));
 	}
 };
 
